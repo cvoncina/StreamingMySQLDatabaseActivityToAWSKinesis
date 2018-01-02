@@ -89,7 +89,7 @@ Once out of root user, restart MySQL using the command “sudo service mysql sta
 How to Demo
 
 Login to the EC2 instance. There must be a ‘.pem’ file of a SSH info. I labeled it “SeniorProject.pem” and run a command similar to this to tunnel into EC2.
- ![](https://github.com/cvoncina/StreamingMySQLDatabaseActivityToAWSKinesis/tree/master/images/first.png)
+ ![LOGIN](https://github.com/cvoncina/StreamingMySQLDatabaseActivityToAWSKinesis/tree/master/images/first.png)
 Navigate to the folder where the C++ files reside and make sure all the static library are installed in this folder (see below).  
   ![](https://github.com/cvoncina/StreamingMySQLDatabaseActivityToAWSKinesis/tree/master/images/second.png)
 
