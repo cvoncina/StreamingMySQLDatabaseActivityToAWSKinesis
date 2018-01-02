@@ -89,39 +89,39 @@ Once out of root user, restart MySQL using the command “sudo service mysql sta
 How to Demo
 
 Login to the EC2 instance. There must be a ‘.pem’ file of a SSH info. I labeled it “SeniorProject.pem” and run a command similar to this to tunnel into EC2.
- ![LOGIN](https://github.com/cvoncina/StreamingMySQLDatabaseActivityToAWSKinesis/tree/master/images/first.png)
+ ![LOGIN_SSH](https://github.com/cvoncina/StreamingMySQLDatabaseActivityToAWSKinesis/tree/master/images/first.png?raw=true)
 Navigate to the folder where the C++ files reside and make sure all the static library are installed in this folder (see below).  
-  ![](https://github.com/cvoncina/StreamingMySQLDatabaseActivityToAWSKinesis/tree/master/images/second.png)
+  ![FILE_LOCATION](https://github.com/cvoncina/StreamingMySQLDatabaseActivityToAWSKinesis/tree/master/images/second.png?raw=true)
 
 If there is a Shared object already and an attempt is made to make it, it will not generate a new one so make sure to remove the old shared object. The Binary_Stream.so needs to be moved to the MySQL plugin directory, which should be the same location on any Linux system. The command to login to MySQL is: “mysql -u root -p <password>” and a user does not need to type a password until prompted.
-  ![](https://github.com/cvoncina/StreamingMySQLDatabaseActivityToAWSKinesis/tree/master/images/third.png)
+  ![LOGIN_MYSQL](https://github.com/cvoncina/StreamingMySQLDatabaseActivityToAWSKinesis/tree/master/images/third.png?raw=true)
 
 In the image above, there is a shared object called ‘server_audit.so’.  It is very important not to have this shared object installed at the same time as the plugin, or it can create a race condition which would make both shared objects not work. Once a developer has logged into MySQL they need to check what plugins are active. As per below image, I have the plugin already active. You can check using the “show plugins;” command. To install the plugin, run the command shown in Figure 1 Show Plugins Result Part 1.
-  ![](https://github.com/cvoncina/StreamingMySQLDatabaseActivityToAWSKinesis/tree/master/images/showPlugPart1.png)
+  ![PLUGIN_OUTPUT](https://github.com/cvoncina/StreamingMySQLDatabaseActivityToAWSKinesis/tree/master/images/showPlugPart1.png?raw=true)
 
 Figure 1 Show Plugins Result Part 1
 
 …
-  ![](https://github.com/cvoncina/StreamingMySQLDatabaseActivityToAWSKinesis/tree/master/images/ShowPlugPart2.png)
+  ![PLUGIN_OUTPUT2](https://github.com/cvoncina/StreamingMySQLDatabaseActivityToAWSKinesis/tree/master/images/ShowPlugPart2.png?raw=true)
 
 Figure 2 Show Plugins Result Part 2
 
 This plugin below stores server activity information in the AWS Kinesis for a single day because the account used is on the AWS free tier. Nevertheless, now that the plugin is installed the developer can type any command they want. This information is streamed to the stream name the code created. In this case, the stream name is BinLogStream32. Go back to the terminal on the local machine and run some AWS CLI command tools. First, grab the shard-id with the command in the picture below.
-  ![](https://github.com/cvoncina/StreamingMySQLDatabaseActivityToAWSKinesis/tree/master/images/getShard.png)
+  ![GET_SHARD](https://github.com/cvoncina/StreamingMySQLDatabaseActivityToAWSKinesis/tree/master/images/getShard.png?raw=true)
 
 Now that the shard id has been obtained it can be put at the end of the get-records command as shown in Figure 3 AWS Kinesis Stream Records Part 1 below. After running this command, the stream should be populated with data activity in Base 64 (see Figure 4 AWS Kinesis Stream Records Part 2 and Figure 5 AWS Kinesis Stream Records Part 3). 
-  ![](https://github.com/cvoncina/StreamingMySQLDatabaseActivityToAWSKinesis/tree/master/images/getrecord.png)
+  ![GET_RECORD](https://github.com/cvoncina/StreamingMySQLDatabaseActivityToAWSKinesis/tree/master/images/getrecord.png?raw=true)
 
 Figure 3 AWS Kinesis Stream Records Part 1
 
-  ![](https://github.com/cvoncina/StreamingMySQLDatabaseActivityToAWSKinesis/tree/master/images/RecordPart2.png)
+  ![recordPart2](https://github.com/cvoncina/StreamingMySQLDatabaseActivityToAWSKinesis/tree/master/images/RecordPart2.png?raw=true)
 
 Figure 4 AWS Kinesis Stream Records Part 2
-  ![](https://github.com/cvoncina/StreamingMySQLDatabaseActivityToAWSKinesis/tree/master/images/recordPart3.png)
+  ![recordPart3](https://github.com/cvoncina/StreamingMySQLDatabaseActivityToAWSKinesis/tree/master/images/recordPart3.png?raw=true)
 
 Figure 5 AWS Kinesis Stream Records Part 3
 This binary information is hard to understand without a converter, so go to any base64 converter website such as https://www.base64decode.org , paste the AWS Kinesis stream blob into the website, and decode it. See Figure 6 Decoding Base64 to Text below.
- ![](https://github.com/cvoncina/StreamingMySQLDatabaseActivityToAWSKinesis/tree/master/images/decode.png)
+ ![decode](https://github.com/cvoncina/StreamingMySQLDatabaseActivityToAWSKinesis/tree/master/images/decode.png?raw=true)
  
 Figure 6 Decoding Base64 to Text
 
