@@ -68,32 +68,6 @@ static void bin_log_finalize() { //this function is run after quiting mysql
      
      }
   }
-/* below is more features to add into the project I decided not to implement them.
-  else if (event_class == MYSQL_AUDIT_SERVER_STARTUP_CLASS) {
-  }
-  else if (event_class == MYSQL_AUDIT_SERVER_SHUTDOWN_CLASS){
-  }
-  else if (event_class == MYSQL_AUDIT_QUERY_CLASS) {
-    const struct mysql_event_query *event_query = (const struct mysql_event_query *)event;
-    buffer_data= sprintf(buffer, "sql_command_id=\"%d\"",
-                         (int) event_query->sql_command_id);
-   switch (event_query->event_subclass) {
-    case MYSQL_AUDIT_QUERY_START:
-      break;
-    case MYSQL_AUDIT_QUERY_NESTED_START:
-      break;
-    case MYSQL_AUDIT_QUERY_STATUS_END:
-      break;
-    case MYSQL_AUDIT_QUERY_NESTED_STATUS_END:
-      break;
-    default:
-      break;
-    }
-  }
-  else {
-	//do nothing
-  }
-*/
 }
 extern "C" void initialize(Aws::Client::ClientConfiguration clientConfig, const char * streamName, const char * ALLOCATION_TAG, const int shardNumber) {
 
